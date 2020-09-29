@@ -1,0 +1,66 @@
+﻿@page "/schedule/{Id:int}"
+@inject NavigationManager NavigationManager
+@inject HttpClient http
+@using CalenderSchedule.Shared
+
+
+<div>
+    <h1>@calenderItem.Name</h1>
+</div>
+<div>
+    @calenderItem.Day.ToString("D");
+</div>
+<div>
+    @calenderItem.Time.ToString("T");
+</div>
+<div>
+    @calenderItem.Description;
+</div>
+
+<div Style="border:solid 2px; border-color: black">
+    <h2>Add a Project</h2>
+    <hr />
+    <h3>Schedule Name</h3>
+    <input @bind-value="@calenderItem.Name" placeholder="Name" />
+    <hr />
+    <h3>Calender Date</h3>
+    <input @bind-value="@calenderItem.Day" type="date" placeholder="Date" />
+    <hr />
+    <h3>Calender  Time</h3>
+    <input @bind-value="@calenderItem.Time" type="time" placeholder="Time" />
+    <hr />
+    <h3>Schedule Description</h3>
+    <input @bind-value="@calenderItem.Description" placeholder="Description" />
+    <hr />
+    <button @onclick="Update">Update Schedule Item</button>
+</div>
+<hr />
+<button @onclick="Delete">Delete Item</button>
+
+
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    Schedule calenderItem = new Schedule();
+
+    protected override async Task OnInitializedAsync()
+    {
+        string uri = "/api/calender/getsingle/" + Id;
+        calenderItem = await http.GetFromJsonAsync<Schedule>(uri);
+    }
+
+    public async Task Update()
+    {
+        await http.PostAsJsonAsync("/api/calender/Update", calenderItem);
+        NavigationManager.NavigateTo("");
+    }
+
+    public async Task Delete()
+    {
+        await http.PostAsJsonAsync("/api/calender/Delete", calenderItem);
+        NavigationManager.NavigateTo("");
+    }
+}
