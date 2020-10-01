@@ -1,5 +1,6 @@
 ﻿using CalenderSchedule.Shared;
 using CalenderScheduleMobile.Services;
+using CalenderScheduleMobile.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CalenderScheduleMobile.ViewModels
 {
@@ -20,6 +22,11 @@ namespace CalenderScheduleMobile.ViewModels
             Title = "Main Page";
             scheduleItem = new Schedule();
             this.calenderService = calenderService ?? throw new ArgumentNullException(nameof(calenderService));
+        }
+
+        public async Task InitializeData() 
+        {
+            Schedules = await calenderService.GetTutorialsAsync();
         }
 
 
@@ -62,7 +69,6 @@ namespace CalenderScheduleMobile.ViewModels
         public DelegateCommand AddSchedule =>
             addSchedule ?? (addSchedule = new DelegateCommand(async () =>
             {
-                Schedules = await calenderService.GetTutorialsAsync();
                 scheduleItem.Name = Name;
                 scheduleItem.Day = ModelDate;
                 scheduleItem.Time = ModelDate + Time;
@@ -71,6 +77,15 @@ namespace CalenderScheduleMobile.ViewModels
                 Name = null;
                 ModelDate = DateTime.Now;
                 Description = null;
+                await InitializeData();
+                await NavigationService.NavigateAsync(nameof(ScheduleListPage));
+            }));
+
+        private DelegateCommand navigate;
+        public DelegateCommand Navigate =>
+            navigate ?? (navigate = new DelegateCommand(async () =>
+            {
+                await NavigationService.NavigateAsync(nameof(ScheduleListPage));
             }));
 
     }

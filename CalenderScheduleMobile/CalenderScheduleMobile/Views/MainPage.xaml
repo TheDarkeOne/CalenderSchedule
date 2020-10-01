@@ -15,6 +15,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width=".2*"></ColumnDefinition>
                 <ColumnDefinition ></ColumnDefinition>
+                <ColumnDefinition ></ColumnDefinition>
             </Grid.ColumnDefinitions>
             
             <StackLayout Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1">
@@ -29,6 +30,7 @@
                 <Entry Text="{Binding Description, Mode=TwoWay}"></Entry>
             </StackLayout>
             <Button Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" BackgroundColor="Accent" Text="Add to Schedule" HorizontalOptions="CenterAndExpand" Command="{Binding AddSchedule}"></Button>
+            <Button Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" BackgroundColor="Accent" Text="Schedule List View" HorizontalOptions="CenterAndExpand" Command="{Binding Navigate}"></Button>
         </Grid>
     </StackLayout>
 
