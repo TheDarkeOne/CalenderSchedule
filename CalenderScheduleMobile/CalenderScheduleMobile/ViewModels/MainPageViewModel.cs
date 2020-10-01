@@ -51,11 +51,18 @@ namespace CalenderScheduleMobile.ViewModels
             set { SetProperty(ref description, value); }
         }
 
+        private IEnumerable<Schedule> schedules;
+        public IEnumerable<Schedule> Schedules
+        {
+            get { return schedules; }
+            set { SetProperty(ref schedules, value); }
+        }
+
         private DelegateCommand addSchedule;
         public DelegateCommand AddSchedule =>
             addSchedule ?? (addSchedule = new DelegateCommand(async () =>
             {
-
+                Schedules = await calenderService.GetTutorialsAsync();
                 scheduleItem.Name = Name;
                 scheduleItem.Day = ModelDate;
                 scheduleItem.Time = ModelDate + Time;

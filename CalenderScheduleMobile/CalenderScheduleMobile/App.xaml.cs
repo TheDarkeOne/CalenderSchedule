@@ -12,11 +12,10 @@ namespace CalenderScheduleMobile
 {
     public partial class App
     {
-        string scheduleAddress = "https://localhost:5005";
-        public App(IPlatformInitializer initializer)
-            : base(initializer)
-        {
-        }
+        string scheduleAddress = "http://localhost:5005";
+        public App() : this(null) { }
+
+        public App(IPlatformInitializer initializer) : base(initializer) { }
 
         protected override async void OnInitialized()
         {
