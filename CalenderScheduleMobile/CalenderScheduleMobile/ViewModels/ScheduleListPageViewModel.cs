@@ -24,11 +24,6 @@ namespace CalenderScheduleMobile.ViewModels
             this.calenderService = calenderService ?? throw new ArgumentNullException(nameof(calenderService));
         }
 
-        public async Task InitializeData()
-        {
-            Schedules = await calenderService.GetTutorialsAsync();
-        }
-
         private IEnumerable<Schedule> schedules;
         public IEnumerable<Schedule> Schedules
         {
@@ -36,11 +31,11 @@ namespace CalenderScheduleMobile.ViewModels
             set { SetProperty(ref schedules, value); }
         }
 
-        private DelegateCommand addSchedule;
-        public DelegateCommand AddSchedule =>
-            addSchedule ?? (addSchedule = new DelegateCommand(async () =>
+        private DelegateCommand getSchedules;
+        public DelegateCommand GetSchedules =>
+            getSchedules ?? (getSchedules = new DelegateCommand(async () =>
             {
-                await InitializeData();
+                Schedules = await calenderService.GetTutorialsAsync();
             }));
     }
 }

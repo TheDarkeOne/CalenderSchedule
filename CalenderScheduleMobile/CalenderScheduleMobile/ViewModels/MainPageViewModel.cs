@@ -78,7 +78,6 @@ namespace CalenderScheduleMobile.ViewModels
                 ModelDate = DateTime.Now;
                 Description = null;
                 await InitializeData();
-                await NavigationService.NavigateAsync(nameof(ScheduleListPage));
             }));
 
         private DelegateCommand navigate;

@@ -14,53 +14,42 @@
     </ContentPage.Resources>
 
     <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height=".2*"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width=".2*"></ColumnDefinition>
-                <ColumnDefinition ></ColumnDefinition>
-            </Grid.ColumnDefinitions>
 
-            
-            <Button Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" BackgroundColor="Accent" Text="Add to Schedule" HorizontalOptions="CenterAndExpand" Command="{Binding AddSchedule}"></Button>
-            <ListView ItemsSource="{Binding Schedules}" ListView.RowHeight="110" HasUnevenRows="True" >
-                <ListView.Behaviors>
-                    <b:EventToCommandBehavior EventName="ItemTapped"
+        <ListView ItemsSource="{Binding Schedules}" ListView.RowHeight="110" HasUnevenRows="True" >
+            <ListView.Behaviors>
+                <b:EventToCommandBehavior EventName="ItemTapped"
                                        Command="{Binding ItemTappedCommand}"
                                        EventArgsConverter="{StaticResource itemTappedEventArgsConverter}" />
-                </ListView.Behaviors>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Frame BorderColor="Black"
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame BorderColor="Black"
                                 CornerRadius="10"
                                 HasShadow="True"
                                 BackgroundColor="#32cd32">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
 
-                                    <Label Grid.Column="1" Grid.Row="0"  Text="{Binding Name}"/>
-                                    <Label Grid.Column="0" Grid.Row="1"  Text="{Binding Day}"/>
-                                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding Time}"/>
-                                    <Label Grid.Column="1" Grid.Row="2" Text="{Binding Description}"/>
-                                </Grid>
-                            </Frame>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            </Grid>
+                                <Label Grid.Column="1" Grid.Row="0"  Text="{Binding Name}"/>
+                                <Label Grid.Column="0" Grid.Row="1"  Text="{Binding Day}"/>
+                                <Label Grid.Column="1" Grid.Row="1" Text="{Binding Time}"/>
+                                <Label Grid.Column="1" Grid.Row="2" Text="{Binding Description}"/>
+                            </Grid>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" BackgroundColor="Accent" Text="Schedule List View" HorizontalOptions="CenterAndExpand" Command="{Binding GetSchedules}"></Button>
     </StackLayout>
 
 </ContentPage>
