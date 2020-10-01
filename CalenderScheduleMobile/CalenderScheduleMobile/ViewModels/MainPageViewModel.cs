@@ -60,7 +60,7 @@ namespace CalenderScheduleMobile.ViewModels
                 scheduleItem.Day = ModelDate;
                 scheduleItem.Time = ModelDate + Time;
                 scheduleItem.Description = Description;
-                //await calenderService.AddSchedule(scheduleItem);
+                await calenderService.AddSchedule(scheduleItem);
                 Name = null;
                 ModelDate = DateTime.Now;
                 Description = null;
