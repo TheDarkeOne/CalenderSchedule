@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CalenderScheduleAPI.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CalenderController : ControllerBase
     {
