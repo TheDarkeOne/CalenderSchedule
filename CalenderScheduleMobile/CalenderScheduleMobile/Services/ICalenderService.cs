@@ -11,19 +11,19 @@ namespace CalenderScheduleMobile.Services
 
     public interface ICalenderService
     {
-        [Get("/calender")]
+        [Get("/api/calender")]
         Task<IEnumerable<Schedule>> GetTutorialsAsync();
         
-        [Get("/calender/getsingle/{id}")]
+        [Get("/api/calender/getsingle/{id}")]
         Task<Schedule> GetTutorialAsync(int id);
 
-        [Post("/calender/addcalender")]
+        [Post("/api/calender/addcalender")]
         Task AddSchedule(Schedule newSchedule);
         
-        [Post("/calender/update")]
+        [Post("/api/calender/update")]
         Task UpdateSchedule(Schedule schedule);
         
-        [Post("/calender/delete")]
+        [Post("/api/calender/delete")]
         Task DeleteSchedule(Schedule schedule);
     }
 

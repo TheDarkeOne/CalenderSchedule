@@ -1,5 +1,8 @@
 ﻿import React, { Component } from 'react';
 
+import axios from 'axios';
+import { FormGroup } from 'reactstrap';
+
 export class CalenderData extends Component {
     static displayName = CalenderData.name;
 
@@ -7,37 +10,49 @@ export class CalenderData extends Component {
         super(props);
         this.state = {
             calenders: [],
-            scheduleName: "defualt",
-            day: "2019-07-26T00:00:00",
-            time: "2019-07-26T00:01:00",
-            description: "default",
-            loading: true};
-        this.create = this.create.bind(this);
+            scheduleName: '',
+            day: '',
+            time: '',
+            description: '',
+            loading: true
+        };
+
+        this.handleChangeName = this.handleChangeName.bind(this);
+        this.handleChangeDay = this.handleChangeDay.bind(this);
+        this.handleChangeTime = this.handleChangeTime.bind(this);
+        this.handleChangeDescription = this.handleChangeDescription.bind(this);
+        this.Addstudent = this.Addstudent.bind(this);
     }
 
-    create(e) {
-        // add entity - POST
-        e.preventDefault();
-        // creates entity
+    handleChangeName(event) {
+        this.setState({ scheduleName: event.target.scheduleName });
+    }
+
+    handleChangeDay(event) {
+        this.setState({ day: event.target.day });
+    }
+
+    handleChangeTime(event) {
+        this.setState({ time: event.target.time });
+    }
+
+    handleChangeDescription(event) {
+        this.setState({ description: event.target.description });
+    }
+
+    Addstudent() {
+
+
+        axios.post('http://localhost:5005/api/calender/addcalender', {
+            Name: this.state.scheduleName, Day: this.state.day,
+            Time: this.state.time, Description: this.state.description
+        })
+
+        /*// creates entity
         fetch("http://localhost:5005/api/calender/addcalender", {
             "method": "POST",
-            "headers": {
-                "content-type": "application/json"
-            },
-            "body": JSON.stringify({
-                name: this.state.scheduleName,
-                day: this.state.day,
-                time: this.stat.time,
-                description: this.state.description
-            })
-        })
-            .then(response => response.json())
-            .then(response => {
-                console.log(response)
-            })
-            .catch(err => {
-                console.log(err);
-            });
+            "body": JSON.stringify(body)
+        })*/
     }
 
     componentDidMount() {
@@ -46,7 +61,7 @@ export class CalenderData extends Component {
 
     static renderScheduleTable(calenders) {
         return (
-            <body>
+            <div>
                 <table className='table table-striped' aria-labelledby="tabelLabel">
                     <thead>
                         <tr>
@@ -69,61 +84,50 @@ export class CalenderData extends Component {
                         )}
                     </tbody>
                 </table>
-                <form className="d-flex flex-column">
+                <form className="d-flex flex-column" onSubmit={this.Addstudent}>
                     <legend className="text-center">Add Schedule To Calender</legend>
-                    <label htmlFor="scheduleName">
+                    <label>
                         Schedule Name:
-                  <input
-                            name="scheduleName"
-                            id="scheduleName"
+                            <input
                             type="text"
                             className="form-control"
-                            value="defualt"
-                            onChange={(e) => this.handleChange({ scheduleName: e.target.value })}
+                            onChange={this.handleChangeName}
                             required
-                        />
+                            />
                     </label>
-                    <label htmlFor="day">
+                    <label>
                         Schedule Day:
-                  <input
+                     <input
                             name="day"
-                            id="day"
-                            type="datetime"
+                            type="datetime-local"
                             className="form-control"
-                            value="2019-07-26T00:00:00"
-                            onChange={(e) => this.handleChange({ day: e.target.value })}
+                            onChange={this.handleChangeDay}
                             required
                         />
                     </label>
-                    <label htmlFor="time">
-                        Schedule Name:
-                  <input
+                    <label>
+                        Schedule Time:
+                    <input
                             name="time"
-                            id="time"
-                            type="datetime"
+                            type="datetime-local"
                             className="form-control"
-                            value="2019-07-26T00:01:00"
-                            onChange={(e) => this.handleChange({ time: e.target.value })}
+                            onChange={this.handleChangeTime}
                             required
                         />
                     </label>
-                    <label htmlFor="description">
-                        Schedule Day:
-                  <input
+                    <label>
+                        Schedule Description:
+                    <input
                             name="description"
-                            id="description"
                             type="text"
                             className="form-control"
-                            value="defualt"
-                            onChange={(e) => this.handleChange({ description: e.target.value })}
+                            onChange={this.handleChangeDescription}
                             required
                         />
                     </label>
-                    <button className="btn btn-primary" type='button' onClick={(e) => this.create(e)}>
-                        Add
-                </button>
+                    <input type="submit" name="Add" />
                 </form>
-            </body>
+            </div>
         );
     }
 
@@ -142,13 +146,18 @@ export class CalenderData extends Component {
     }
 
     async populateCalenderData() {
-        await fetch('http://localhost:5005/api/calender', {
+        axios.get(`http://localhost:5005/api/calender`)
+            .then(res => {
+                this.setState({ calenders: res.data, loading: false });
+            })
+
+        /*await fetch('http://localhost:5005/api/calender', {
             "method": "GET"
             })
             .then(res => res.json())
             .then((data) => {
                 this.setState({ calenders: data, loading: false })
             })
-            .catch(console.log)
+            .catch(console.log)*/
     }
 }
