@@ -20,7 +20,6 @@ namespace CalenderSchedule.BlazorWASM
             var baseAddress = builder.Configuration["HttpClientBaseAddress"];
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseAddress) });
 
-
             await builder.Build().RunAsync();
         }
     }
