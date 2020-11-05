@@ -23,9 +23,29 @@ namespace CalenderScheduleAPI.Data
             await applicationDBContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Schedule>> GetSchedule()
+        public async Task<IEnumerable<Schedule>> GetSchedules()
         {
             return await applicationDBContext.Schedule.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Schedule>> GetSchedulesByDay(int Day)
+        {
+            return await applicationDBContext.Schedule.Where(p => (p.Day == Day)).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Schedule>> GetSchedulesByMonth(int Month)
+        {
+            return await applicationDBContext.Schedule.Where(p => (p.Month == Month)).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Schedule>> GetSchedulesByYear(int Year)
+        {
+            return await applicationDBContext.Schedule.Where(p => (p.Year == Year)).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Schedule>> GetSchedulesByDate(int Year, int Month, int Day)
+        {
+            return await applicationDBContext.Schedule.Where(p => (p.Year == Year)).Where(p => (p.Month == Month)).Where(p => (p.Day == Day)).ToListAsync();
         }
 
         public async Task<Schedule> GetScheduleById(int Id)

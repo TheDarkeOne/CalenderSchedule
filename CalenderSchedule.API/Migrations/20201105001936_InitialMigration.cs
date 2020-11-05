@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace CalenderScheduleAPI.Migrations
+namespace CalenderSchedule.API.Migrations
 {
     public partial class InitialMigration : Migration
     {
@@ -14,7 +14,10 @@ namespace CalenderScheduleAPI.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Day = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Year = table.Column<int>(nullable: false),
+                    Month = table.Column<int>(nullable: false),
+                    Day = table.Column<int>(nullable: false),
                     Time = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true)
                 },

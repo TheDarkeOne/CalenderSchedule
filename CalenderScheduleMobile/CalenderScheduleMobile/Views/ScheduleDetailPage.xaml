@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="CalenderScheduleMobile.Views.ScheduleDetailPage">
+    <StackLayout>
+        <Label Text="Schedule Detail Page."></Label>
+
+        <Label Text="{Binding Name}"></Label>
+        <Label Text="{Binding Time}"></Label>
+        <Label Text="{Binding Description}"></Label>
+
+        <Label Text="Schedule Name"></Label>
+        <Entry Text="{Binding Name, Mode=TwoWay}"></Entry>
+        <Label Text="Schedule Month"></Label>
+        <Entry Text="{Binding Month, Mode=TwoWay}"></Entry>
+        <Label Text="Schedule Day"></Label>
+        <Entry Text="{Binding Day, Mode=TwoWay}"></Entry>
+        <Label Text="Schedule Year"></Label>
+        <Entry Text="{Binding Year, Mode=TwoWay}"></Entry>
+        <Label Text="Calender Time"></Label>
+        <TimePicker Time="{Binding Time, Mode=TwoWay}" HorizontalOptions="Start"/>
+        <Label Text="Schedule Description"></Label>
+        <Entry Text="{Binding Description, Mode=TwoWay}"></Entry>
+        <Button BackgroundColor="Accent" Text="Update Schedule Item" HorizontalOptions="CenterAndExpand" Command="{Binding UpdateSchedule}"></Button>
+    </StackLayout>
+</ContentPage>

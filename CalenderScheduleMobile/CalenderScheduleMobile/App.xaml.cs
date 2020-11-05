@@ -34,6 +34,7 @@ namespace CalenderScheduleMobile
             var EPService = RestService.For<ICalenderService>(scheduleAddress);
             containerRegistry.RegisterInstance(EPService);
             containerRegistry.RegisterForNavigation<ScheduleListPage, ScheduleListPageViewModel>();
+            containerRegistry.RegisterForNavigation<ScheduleDetailPage, ScheduleDetailPageViewModel>();
         }
     }
 }

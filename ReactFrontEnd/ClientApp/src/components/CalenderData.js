@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 
-import axios from 'axios';
+/*import axios from 'axios';*/
 import { FormGroup } from 'reactstrap';
 
 export class CalenderData extends Component {
@@ -12,6 +12,8 @@ export class CalenderData extends Component {
             calenders: [],
             scheduleName: '',
             day: '',
+            month: '',
+            year: '',
             time: '',
             description: '',
             loading: true
@@ -19,6 +21,8 @@ export class CalenderData extends Component {
 
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleChangeDay = this.handleChangeDay.bind(this);
+        this.handleChangeMonth = this.handleChangeMonth.bind(this);
+        this.handleChangeYear = this.handleChangeYear.bind(this);
         this.handleChangeTime = this.handleChangeTime.bind(this);
         this.handleChangeDescription = this.handleChangeDescription.bind(this);
         this.Addstudent = this.Addstudent.bind(this);
@@ -31,6 +35,12 @@ export class CalenderData extends Component {
     handleChangeDay(event) {
         this.setState({ day: event.target.day });
     }
+    handleChangeMonth(event) {
+        this.setState({ month: event.target.month });
+    }
+    handleChangeYear(event) {
+        this.setState({ year: event.target.year });
+    }
 
     handleChangeTime(event) {
         this.setState({ time: event.target.time });
@@ -41,12 +51,10 @@ export class CalenderData extends Component {
     }
 
     Addstudent() {
-
-
-        axios.post('http://localhost:5005/api/calender/addcalender', {
+        /*axios.post('http://localhost:5005/api/calender/addcalender', {
             Name: this.state.scheduleName, Day: this.state.day,
             Time: this.state.time, Description: this.state.description
-        })
+        })*/
 
         /*// creates entity
         fetch("http://localhost:5005/api/calender/addcalender", {
@@ -67,7 +75,9 @@ export class CalenderData extends Component {
                         <tr>
                             <th>Id</th>
                             <th>Name</th>
+                            <th>Month</th>
                             <th>Day</th>
+                            <th>Year</th>
                             <th>Time</th>
                             <th>Description</th>
                         </tr>
@@ -77,56 +87,15 @@ export class CalenderData extends Component {
                             <tr key={calenders.id}>
                                 <td>{calenders.id}</td>
                                 <td>{calenders.name}</td>
+                                <td>{calenders.month}</td>
                                 <td>{calenders.day}</td>
+                                <td>{calenders.year}</td>
                                 <td>{calenders.time}</td>
                                 <td>{calenders.description}</td>
                             </tr>
                         )}
                     </tbody>
                 </table>
-                <form className="d-flex flex-column" onSubmit={this.Addstudent}>
-                    <legend className="text-center">Add Schedule To Calender</legend>
-                    <label>
-                        Schedule Name:
-                            <input
-                            type="text"
-                            className="form-control"
-                            onChange={this.handleChangeName}
-                            required
-                            />
-                    </label>
-                    <label>
-                        Schedule Day:
-                     <input
-                            name="day"
-                            type="datetime-local"
-                            className="form-control"
-                            onChange={this.handleChangeDay}
-                            required
-                        />
-                    </label>
-                    <label>
-                        Schedule Time:
-                    <input
-                            name="time"
-                            type="datetime-local"
-                            className="form-control"
-                            onChange={this.handleChangeTime}
-                            required
-                        />
-                    </label>
-                    <label>
-                        Schedule Description:
-                    <input
-                            name="description"
-                            type="text"
-                            className="form-control"
-                            onChange={this.handleChangeDescription}
-                            required
-                        />
-                    </label>
-                    <input type="submit" name="Add" />
-                </form>
             </div>
         );
     }
@@ -146,18 +115,18 @@ export class CalenderData extends Component {
     }
 
     async populateCalenderData() {
-        axios.get(`http://localhost:5005/api/calender`)
+        /*axios.get(`http://localhost:5005/api/calender`)
             .then(res => {
                 this.setState({ calenders: res.data, loading: false });
-            })
+            })*/
 
-        /*await fetch('http://localhost:5005/api/calender', {
+        await fetch('http://localhost:5005/api/calender', {
             "method": "GET"
             })
             .then(res => res.json())
             .then((data) => {
                 this.setState({ calenders: data, loading: false })
             })
-            .catch(console.log)*/
+            .catch(console.log)
     }
 }

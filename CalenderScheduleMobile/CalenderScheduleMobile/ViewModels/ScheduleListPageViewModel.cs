@@ -14,12 +14,10 @@ namespace CalenderScheduleMobile.ViewModels
     public class ScheduleListPageViewModel : ViewModelBase
     {
         private readonly ICalenderService calenderService;
-        private Schedule scheduleItem;
         public ScheduleListPageViewModel(INavigationService navigationService, ICalenderService calenderService)
             : base(navigationService)
         {
             Title = "Main Page";
-            scheduleItem = new Schedule();
             Schedules = new ObservableCollection<Schedule>();
             this.calenderService = calenderService ?? throw new ArgumentNullException(nameof(calenderService));
         }
@@ -37,5 +35,19 @@ namespace CalenderScheduleMobile.ViewModels
             {
                 Schedules = await calenderService.GetTutorialsAsync();
             }));
+
+        private DelegateCommand<Schedule> itemTappedCommand;
+
+        public DelegateCommand<Schedule> ItemTappedCommand => itemTappedCommand ?? (itemTappedCommand = new DelegateCommand<Schedule>(ExecuteItemTappedCommand));
+
+        public void ExecuteItemTappedCommand(Schedule selectedSchedule)
+        {
+            NavigationParameters Parameters = new NavigationParameters
+            {
+                { "schedule", selectedSchedule }
+            };
+            NavigationService.NavigateAsync(nameof(Views.ScheduleDetailPage), Parameters, false, true);
+
+        }
     }
 }

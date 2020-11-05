@@ -17,7 +17,7 @@ Welcome to your new app.
     <h3>Calender Date</h3>
     <input @bind-value="date" type="date" placeholder="Date" />
     <hr />
-    <h3>Calender  Time</h3>
+    <h3>Calender Time</h3>
     <input @bind-value="time" type="time" placeholder="Time" />
     <hr />
     <h3>Schedule Description</h3>
@@ -34,12 +34,7 @@ Welcome to your new app.
     <button @onclick="@(() => navigate(@i.Id))">Edit</button>
 </div>
 }
-@*<ul>
-        @foreach (var p in projects)
-        {
-            <li >@p.Title</li>
-        }
-    </ul>*@
+
 @code
 {
     private string Name;
@@ -52,7 +47,9 @@ Welcome to your new app.
     {
         Schedule schedule = new Schedule();
         schedule.Name = Name;
-        schedule.Day = date;
+        schedule.Day = date.Day;
+        schedule.Month = date.Month;
+        schedule.Year = date.Year;
         schedule.Time = time;
         schedule.Description = Description;
         await http.PostAsJsonAsync("/api/calender/AddCalender", schedule);

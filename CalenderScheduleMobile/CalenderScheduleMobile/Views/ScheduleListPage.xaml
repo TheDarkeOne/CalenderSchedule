@@ -40,7 +40,6 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Label Grid.Column="1" Grid.Row="0"  Text="{Binding Name}"/>
-                                <Label Grid.Column="0" Grid.Row="1"  Text="{Binding Day}"/>
                                 <Label Grid.Column="1" Grid.Row="1" Text="{Binding Time}"/>
                                 <Label Grid.Column="1" Grid.Row="2" Text="{Binding Description}"/>
                             </Grid>

@@ -23,10 +23,40 @@ namespace CalenderScheduleAPI.Controllers
         [HttpGet]
         public async Task<IEnumerable<Schedule>> Get()
         {
-            return await dataService.GetSchedule();
+            return await dataService.GetSchedules();
         }
 
-        [HttpGet("[action]/{id}")]
+        [HttpGet("[action]/{dateTime}")]
+        public async Task<IEnumerable<Schedule>> GetScheduleByDay(DateTime dateTime)
+        {
+            var Day = dateTime.Day;
+            return await dataService.GetSchedulesByDay(Day);
+        }
+
+        [HttpGet("[action]/{dateTime}")]
+        public async Task<IEnumerable<Schedule>> GetScheduleByMonth(DateTime dateTime)
+        {
+            var Month = dateTime.Month;
+            return await dataService.GetSchedulesByMonth(Month);
+        }
+
+        [HttpGet("[action]/{dateTime}")]
+        public async Task<IEnumerable<Schedule>> GetScheduleByYear(DateTime dateTime)
+        {
+            var Year = dateTime.Year;
+            return await dataService.GetSchedulesByYear(Year);
+        }
+
+        [HttpGet("[action]/{dateTime}")]
+        public async Task<IEnumerable<Schedule>> GetScheduleByDate(DateTime dateTime)
+        {
+            var Day = dateTime.Day;
+            var Month = dateTime.Month;
+            var Year = dateTime.Year;
+            return await dataService.GetSchedulesByDate(Year,Month,Day);
+        }
+
+        [HttpGet("[action]/{Id}")]
         public async Task<Schedule> GetSingle(int Id)
         {
             return await dataService.GetScheduleById(Id);
@@ -35,6 +65,7 @@ namespace CalenderScheduleAPI.Controllers
         [HttpPost("[action]")]
         public async Task AddCalender(Schedule schedule)
         {
+
             await dataService.Calender(schedule);
         }
 

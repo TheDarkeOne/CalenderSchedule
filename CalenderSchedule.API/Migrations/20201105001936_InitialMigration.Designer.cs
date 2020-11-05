@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace CalenderScheduleAPI.Migrations
+namespace CalenderSchedule.API.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20200929172703_AddedName")]
-    partial class AddedName
+    [Migration("20201105001936_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,24 +21,30 @@ namespace CalenderScheduleAPI.Migrations
                 .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("CalenderScheduleAPI.Data.Schedule", b =>
+            modelBuilder.Entity("CalenderSchedule.Shared.Schedule", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime>("Day")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<int>("Day")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
+
+                    b.Property<int>("Month")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Time")
                         .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

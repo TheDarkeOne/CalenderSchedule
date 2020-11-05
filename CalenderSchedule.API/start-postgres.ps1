@@ -11,7 +11,6 @@ if(test-path $initializationScript) {
     $initializationPath = resolve-path $initializationScript
 }
 docker run --name $containerName -v "$($initializationPath):/docker-entrypoint-initdb.d/init.sql" -e POSTGRES_PASSWORD=$pgPassword -d -p "$($localPort):5432" postgres:alpine | write-host
-
 # Make sure that the database came up ok
 # Check 1 - is the container up and running
 Write-Verbose "Waiting for container to come up..."

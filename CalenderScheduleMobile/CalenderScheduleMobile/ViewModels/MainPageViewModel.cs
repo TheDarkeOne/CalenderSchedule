@@ -69,13 +69,17 @@ namespace CalenderScheduleMobile.ViewModels
         public DelegateCommand AddSchedule =>
             addSchedule ?? (addSchedule = new DelegateCommand(async () =>
             {
+                var date = new DateTime(ModelDate.Year,ModelDate.Month,ModelDate.Day,Time.Hours,Time.Minutes,Time.Seconds);
                 scheduleItem.Name = Name;
-                scheduleItem.Day = ModelDate;
-                scheduleItem.Time = ModelDate + Time;
+                scheduleItem.Day = ModelDate.Day;
+                scheduleItem.Month = ModelDate.Month;
+                scheduleItem.Year = ModelDate.Year;
+                scheduleItem.Time = date;
                 scheduleItem.Description = Description;
                 await calenderService.AddSchedule(scheduleItem);
                 Name = null;
                 ModelDate = DateTime.Now;
+                Time = new TimeSpan();
                 Description = null;
                 await InitializeData();
             }));
