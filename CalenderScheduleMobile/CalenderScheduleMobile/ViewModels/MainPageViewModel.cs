@@ -26,7 +26,7 @@ namespace CalenderScheduleMobile.ViewModels
 
         public async Task InitializeData() 
         {
-            Schedules = await calenderService.GetTutorialsAsync();
+            Schedules = await calenderService.GetSchedulesAsync();
         }
 
 

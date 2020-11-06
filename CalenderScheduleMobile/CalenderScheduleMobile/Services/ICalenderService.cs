@@ -12,10 +12,18 @@ namespace CalenderScheduleMobile.Services
     public interface ICalenderService
     {
         [Get("/api/calender")]
-        Task<IEnumerable<Schedule>> GetTutorialsAsync();
-        
+        Task<IEnumerable<Schedule>> GetSchedulesAsync();
+        [Get("/api/calender/GetSchedulesByDay/{day}")]
+        Task<IEnumerable<Schedule>> GetSchedulesByDayAsync(int day);
+        [Get("/api/calender/GetSchedulesByMonth/{month}")]
+        Task<IEnumerable<Schedule>> GetSchedulesByMonthAsync(int month);
+        [Get("/api/calender/GetSchedulesByYear/{year}")]
+        Task<IEnumerable<Schedule>> GetSchedulesByYearAsync(int year);
+        [Get("/api/calender/GetSchedulesByDate?year={year}&month={month}&day={day}")]
+        Task<IEnumerable<Schedule>> GetSchedulesByDateAsync(int year, int month, int day);
+
         [Get("/api/calender/getsingle/{id}")]
-        Task<Schedule> GetTutorialAsync(int id);
+        Task<Schedule> GetScheduleAsync(int id);
 
         [Post("/api/calender/addcalender")]
         Task AddSchedule(Schedule newSchedule);

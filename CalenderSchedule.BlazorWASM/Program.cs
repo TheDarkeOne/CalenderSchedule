@@ -1,12 +1,8 @@
 using System;
-using System.Net.Http;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Text;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using CalenderSchedule.BlazorWASM.Services;
 
 namespace CalenderSchedule.BlazorWASM
 {
@@ -18,7 +14,7 @@ namespace CalenderSchedule.BlazorWASM
             builder.RootComponents.Add<App>("app");
 
             var baseAddress = builder.Configuration["HttpClientBaseAddress"];
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseAddress) });
+            builder.Services.AddHttpClient<ScheduleAPIService>(hc => hc.BaseAddress = new Uri(baseAddress));
 
             await builder.Build().RunAsync();
         }

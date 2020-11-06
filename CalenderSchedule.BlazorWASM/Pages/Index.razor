@@ -1,64 +1,66 @@
 ﻿@page "/"
 @inject NavigationManager NavigationManager
-@inject HttpClient http
+@inject CalenderSchedule.BlazorWASM.Services.ScheduleAPIService scheduleAPIService
 @using CalenderSchedule.Shared
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
-<div Style="border:solid 2px; border-color: black">
-    <h2>Add a Project</h2>
-    <hr />
-    <h3>Schedule Name</h3>
-    <input @bind-value="Name" placeholder="Name" />
-    <hr />
-    <h3>Calender Date</h3>
-    <input @bind-value="date" type="date" placeholder="Date" />
-    <hr />
-    <h3>Calender Time</h3>
-    <input @bind-value="time" type="time" placeholder="Time" />
-    <hr />
-    <h3>Schedule Description</h3>
-    <input @bind-value="Description" placeholder="Description" />
-    <hr />
-    <button @onclick="addSchedule">Add To Schedule</button>
-</div>
-<hr />
 <h3>List of Calender Items</h3>
+<h3>Date</h3>
+<input @bind-value="date" type="date" placeholder="Date" />
+<button @onclick="filterMonth">Filter By Month</button>
+<button @onclick="filterDay">Filter By Day</button>
+<button @onclick="filterYear">Filter By Year</button>
+<button @onclick="filterDate">Filter By Date</button>
+<button @onclick="getAllItems">Show All Schedule Items</button>
+<hr />
 @foreach (var i in calender)
 {
-<div>
-    <text>@i.Name</text>
-    <button @onclick="@(() => navigate(@i.Id))">Edit</button>
-</div>
+    <div>
+        <text>@i.Name</text>
+        <button @onclick="@(() => navigate(@i.Id))">Details</button>
+    </div>
 }
 
 @code
 {
-    private string Name;
     private DateTime date;
-    private DateTime time;
-    private string Description;
     private IEnumerable<Schedule> calender = new List<Schedule>();
-
-    private async Task addSchedule()
-    {
-        Schedule schedule = new Schedule();
-        schedule.Name = Name;
-        schedule.Day = date.Day;
-        schedule.Month = date.Month;
-        schedule.Year = date.Year;
-        schedule.Time = time;
-        schedule.Description = Description;
-        await http.PostAsJsonAsync("/api/calender/AddCalender", schedule);
-        calender = await http.GetFromJsonAsync<IEnumerable<Schedule>>("/api/calender");
-    }
 
     protected override async Task OnInitializedAsync()
     {
-        calender = await http.GetFromJsonAsync<IEnumerable<Schedule>>("/api/calender");
+        calender = await scheduleAPIService.GetSchedulesAsync();
+    }
+
+    private async Task filterMonth()
+    {
+        calender = await scheduleAPIService.GetSchedulesByMonthAsync(date.Month);
+    }
+
+    private async Task filterDay()
+    {
+        calender = await scheduleAPIService.GetSchedulesByDayAsync(date.Day);
+    }
+
+    private async Task filterYear()
+    {
+
+        calender = await scheduleAPIService.GetSchedulesByYearAsync(date.Year);
+    }
+
+    private async Task filterDate()
+    {
+        var dateRequest = new DateRequest()
+        {
+            Month = date.Month,
+            Day = date.Day,
+            Year = date.Year
+        };
+
+        calender = await scheduleAPIService.GetSchedulesByDateAsync(dateRequest);
+    }
+
+    private async Task getAllItems()
+    {
+        calender = await scheduleAPIService.GetSchedulesAsync();
     }
 
     private void navigate(int id)

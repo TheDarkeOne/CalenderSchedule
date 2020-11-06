@@ -1,0 +1,30 @@
+﻿@inject NavigationManager NavigationManager
+@using CalenderSchedule.Shared
+
+
+@foreach (var i in Content)
+{
+    <div>
+        <text>@i.Name</text>
+        <button @onclick="@(() => navigate(@i.Id))">Details</button>
+    </div>
+}
+@code {
+    private IEnumerable<Schedule> _content;
+
+    [Parameter]
+    public IEnumerable<Schedule> Content
+    {
+        get => _content;
+        set
+        {
+            _content = value;
+        }
+    }
+
+    private void navigate(int id)
+    {
+        var uri = "schedule/" + id;
+        NavigationManager.NavigateTo(uri);
+    }
+}

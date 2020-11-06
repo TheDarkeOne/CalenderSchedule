@@ -48,7 +48,27 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" BackgroundColor="Accent" Text="Schedule List View" HorizontalOptions="CenterAndExpand" Command="{Binding GetSchedules}"></Button>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <DatePicker Grid.Row="0" Grid.Column="0" Date="{Binding Date}" HorizontalOptions="Start"/>
+            <Button Grid.Row="0" Grid.Column="1" BackgroundColor="Accent" Text="Full Schedule List" HorizontalOptions="CenterAndExpand" Command="{Binding GetSchedules}"></Button>
+            <Button Grid.Row="0" Grid.Column="2" BackgroundColor="Accent" Text="Schedule List By Date" HorizontalOptions="CenterAndExpand" Command="{Binding GetSchedulesByDate}"></Button>
+            <Button Grid.Row="0" Grid.Column="3" BackgroundColor="Accent" Text="Schedule List By Day" HorizontalOptions="CenterAndExpand" Command="{Binding GetSchedulesByDay}"></Button>
+            <Button Grid.Row="0" Grid.Column="4" BackgroundColor="Accent" Text="Schedule List By Month" HorizontalOptions="CenterAndExpand" Command="{Binding GetSchedulesByMonth}"></Button>
+            <Button Grid.Row="0" Grid.Column="5" BackgroundColor="Accent" Text="Schedule List By Year" HorizontalOptions="CenterAndExpand" Command="{Binding GetSchedulesByYear}"></Button>
+
+        </Grid>
     </StackLayout>
 
 </ContentPage>

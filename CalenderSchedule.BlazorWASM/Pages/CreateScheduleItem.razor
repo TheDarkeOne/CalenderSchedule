@@ -1,0 +1,43 @@
+﻿@page "/create"
+@inject NavigationManager NavigationManager
+@inject CalenderSchedule.BlazorWASM.Services.ScheduleAPIService scheduleAPIService
+@using CalenderSchedule.Shared
+
+<h3>Create Schedule Item</h3>
+<div Style="border:solid 2px; border-color: black">
+    <h2>Add a Schedule Item</h2>
+    <hr />
+    <h3>Schedule Name</h3>
+    <input @bind-value="Name" placeholder="Name" />
+    <hr />
+    <h3>Calender Date</h3>
+    <input @bind-value="date" type="date" placeholder="Date" />
+    <hr />
+    <h3>Calender Time</h3>
+    <input @bind-value="time" type="time" placeholder="Time" />
+    <hr />
+    <h3>Schedule Description</h3>
+    <input @bind-value="Description" placeholder="Description" />
+    <hr />
+    <button @onclick="addSchedule">Add To Schedule</button>
+</div>
+<hr />
+@code {
+    private string Name;
+    private DateTime date;
+    private DateTime time;
+    private string Description;
+
+    private async Task addSchedule()
+    {
+        Schedule schedule = new Schedule();
+        schedule.Name = Name;
+        schedule.Day = date.Day;
+        schedule.Month = date.Month;
+        schedule.Year = date.Year;
+        schedule.Time = time;
+        schedule.Description = Description;
+        await scheduleAPIService.AddScheduleAsync(schedule);
+        NavigationManager.NavigateTo("");
+    }
+}

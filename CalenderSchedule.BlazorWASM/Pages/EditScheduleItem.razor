@@ -1,0 +1,51 @@
+﻿@page "/edit/{Id:int}"
+@inject NavigationManager NavigationManager
+@inject CalenderSchedule.BlazorWASM.Services.ScheduleAPIService scheduleAPIService
+@using CalenderSchedule.Shared
+
+<h3>Edit Schedule Item</h3>
+<div Style="border:solid 2px; border-color: black">
+    <h2>Add a Project</h2>
+    <hr />
+    <h3>Schedule Name</h3>
+    <input @bind-value="@calenderItem.Name" placeholder="Name" />
+    <hr />
+    <h3>Calender Date</h3>
+    <h4>Day</h4><input @bind-value="@calenderItem.Day" placeholder="Day" />
+    <hr />
+    <h4>Month</h4><input @bind-value="@calenderItem.Month" placeholder="Month" />
+    <hr />
+    <h4>Year</h4><input @bind-value="@calenderItem.Year" placeholder="Year" />
+    <hr />
+    <h3>Calender  Time</h3>
+    <input @bind-value="@time" type="time" placeholder="Time" />
+    <hr />
+    <h3>Schedule Description</h3>
+    <input @bind-value="@calenderItem.Description" placeholder="Description" />
+    <hr />
+    <button @onclick="Update">Update Schedule Item</button>
+</div>
+<hr />
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    Schedule calenderItem = new Schedule();
+    DateTime time = new DateTime();
+
+    protected override async Task OnInitializedAsync()
+    {
+        calenderItem = await scheduleAPIService.GetScheduleAsync(Id);
+        time = calenderItem.Time;
+    }
+
+    public async Task Update()
+    {
+        var tempTime = new DateTime(calenderItem.Year, calenderItem.Month, calenderItem.Day);
+        tempTime += time.TimeOfDay;
+        calenderItem.Time = tempTime;
+        await scheduleAPIService.UpdateSchedule(calenderItem);
+        NavigationManager.NavigateTo("");
+    }
+
+}

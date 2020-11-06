@@ -26,34 +26,28 @@ namespace CalenderScheduleAPI.Controllers
             return await dataService.GetSchedules();
         }
 
-        [HttpGet("[action]/{dateTime}")]
-        public async Task<IEnumerable<Schedule>> GetScheduleByDay(DateTime dateTime)
+        [HttpGet("[action]/{day}")]
+        public async Task<IEnumerable<Schedule>> GetSchedulesByDay(int day)
         {
-            var Day = dateTime.Day;
-            return await dataService.GetSchedulesByDay(Day);
+            return await dataService.GetSchedulesByDay(day);
         }
 
-        [HttpGet("[action]/{dateTime}")]
-        public async Task<IEnumerable<Schedule>> GetScheduleByMonth(DateTime dateTime)
+        [HttpGet("[action]/{month}")]
+        public async Task<IEnumerable<Schedule>> GetSchedulesByMonth(int month)
         {
-            var Month = dateTime.Month;
-            return await dataService.GetSchedulesByMonth(Month);
+            return await dataService.GetSchedulesByMonth(month);
         }
 
-        [HttpGet("[action]/{dateTime}")]
-        public async Task<IEnumerable<Schedule>> GetScheduleByYear(DateTime dateTime)
+        [HttpGet("[action]/{year}")]
+        public async Task<IEnumerable<Schedule>> GetSchedulesByYear(int year)
         {
-            var Year = dateTime.Year;
-            return await dataService.GetSchedulesByYear(Year);
+            return await dataService.GetSchedulesByYear(year);
         }
 
-        [HttpGet("[action]/{dateTime}")]
-        public async Task<IEnumerable<Schedule>> GetScheduleByDate(DateTime dateTime)
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<Schedule>> GetSchedulesByDate(int year, int month, int day)
         {
-            var Day = dateTime.Day;
-            var Month = dateTime.Month;
-            var Year = dateTime.Year;
-            return await dataService.GetSchedulesByDate(Year,Month,Day);
+            return await dataService.GetSchedulesByDate(year,month,day);
         }
 
         [HttpGet("[action]/{Id}")]

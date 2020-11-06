@@ -20,7 +20,6 @@ namespace CalenderScheduleAPI
             using (var scope = host.Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
-                //db.Database.EnsureCreated();
                 db.Database.Migrate();
             }
             host.Run();

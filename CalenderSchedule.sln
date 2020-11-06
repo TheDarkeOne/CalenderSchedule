@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalenderScheduleMobile.iOS"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalenderScheduleMobile.UWP", "CalenderScheduleMobile\CalenderScheduleMobile.UWP\CalenderScheduleMobile.UWP.csproj", "{7D31D7B4-104F-4808-A4F3-3A53A1A023B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactFrontEnd", "ReactFrontEnd\ReactFrontEnd.csproj", "{AFBE756E-1714-48F7-800A-C0BC788F0475}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactFrontEnd", "ReactFrontEnd\ReactFrontEnd.csproj", "{AFBE756E-1714-48F7-800A-C0BC788F0475}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -22,6 +22,13 @@ namespace CalenderScheduleMobile.ViewModels
             this.calenderService = calenderService ?? throw new ArgumentNullException(nameof(calenderService));
         }
 
+        private DateTime date;
+        public DateTime Date
+        {
+            get { return date; }
+            set { SetProperty(ref date, value); }
+        }
+
         private IEnumerable<Schedule> schedules;
         public IEnumerable<Schedule> Schedules
         {
@@ -33,7 +40,35 @@ namespace CalenderScheduleMobile.ViewModels
         public DelegateCommand GetSchedules =>
             getSchedules ?? (getSchedules = new DelegateCommand(async () =>
             {
-                Schedules = await calenderService.GetTutorialsAsync();
+                Schedules = await calenderService.GetSchedulesAsync();
+            }));
+
+        private DelegateCommand getSchedulesByDate;
+        public DelegateCommand GetSchedulesByDate =>
+            getSchedulesByDate ?? (getSchedulesByDate = new DelegateCommand(async () =>
+            {
+                Schedules = await calenderService.GetSchedulesByDateAsync(Date.Year, Date.Month, Date.Day);
+            }));
+
+        private DelegateCommand getSchedulesByDay;
+        public DelegateCommand GetSchedulesByDay =>
+            getSchedulesByDay ?? (getSchedulesByDay = new DelegateCommand(async () =>
+            {
+                Schedules = await calenderService.GetSchedulesByDayAsync(Date.Day);
+            }));
+
+        private DelegateCommand getSchedulesByMonth;
+        public DelegateCommand GetSchedulesByMonth =>
+            getSchedulesByMonth ?? (getSchedulesByMonth = new DelegateCommand(async () =>
+            {
+                Schedules = await calenderService.GetSchedulesByMonthAsync(Date.Month);
+            }));
+
+        private DelegateCommand getSchedulesByYear;
+        public DelegateCommand GetSchedulesByYear =>
+            getSchedulesByYear ?? (getSchedulesByYear = new DelegateCommand(async () =>
+            {
+                Schedules = await calenderService.GetSchedulesByYearAsync(Date.Year);
             }));
 
         private DelegateCommand<Schedule> itemTappedCommand;

@@ -1,6 +1,6 @@
 ﻿@page "/schedule/{Id:int}"
 @inject NavigationManager NavigationManager
-@inject HttpClient http
+@inject CalenderSchedule.BlazorWASM.Services.ScheduleAPIService scheduleAPIService
 @using CalenderSchedule.Shared
 
 
@@ -8,10 +8,10 @@
     <h1>@calenderItem.Name</h1>
 </div>
 <div>
-    Day: @calenderItem.Day.ToString()
+    Month: @calenderItem.Month.ToString()
 </div>
 <div>
-    Month: @calenderItem.Month.ToString()
+    Day: @calenderItem.Day.ToString()
 </div>
 <div>
     Year: @calenderItem.Year.ToString()
@@ -22,60 +22,30 @@
 <div>
     @calenderItem.Description
 </div>
-
-<div Style="border:solid 2px; border-color: black">
-    <h2>Add a Project</h2>
-    <hr />
-    <h3>Schedule Name</h3>
-    <input @bind-value="@calenderItem.Name" placeholder="Name" />
-    <hr />
-    <h3>Calender Date</h3>
-    <h4>Day</h4><input @bind-value="@calenderItem.Day" placeholder="Day" />
-    <hr />
-    <h4>Month</h4><input @bind-value="@calenderItem.Month" placeholder="Month" />
-    <hr />
-    <h4>Year</h4><input @bind-value="@calenderItem.Year" placeholder="Year" />
-    <hr />
-    <h3>Calender  Time</h3>
-    <input @bind-value="@time" type="time" placeholder="Time" />
-    <hr />
-    <h3>Schedule Description</h3>
-    <input @bind-value="@calenderItem.Description" placeholder="Description" />
-    <hr />
-    <button @onclick="Update">Update Schedule Item</button>
-</div>
 <hr />
+
+<button @onclick="Edit">Edit Item</button>
 <button @onclick="Delete">Delete Item</button>
-
-
-
 
 @code {
     [Parameter]
     public int Id { get; set; }
 
     Schedule calenderItem = new Schedule();
-    DateTime time = new DateTime();
 
     protected override async Task OnInitializedAsync()
     {
-        string uri = "/api/calender/getsingle/" + Id;
-        calenderItem = await http.GetFromJsonAsync<Schedule>(uri);
-        time = calenderItem.Time;
+        calenderItem = await scheduleAPIService.GetScheduleAsync(Id);
     }
 
-    public async Task Update()
+    public void Edit()
     {
-        var tempTime = new DateTime(calenderItem.Year, calenderItem.Month, calenderItem.Day);
-        tempTime += time.TimeOfDay;
-        calenderItem.Time = tempTime;
-        await http.PostAsJsonAsync("/api/calender/Update", calenderItem);
-        NavigationManager.NavigateTo("");
+        NavigationManager.NavigateTo($"edit/{Id}");
     }
 
     public async Task Delete()
     {
-        await http.PostAsJsonAsync("/api/calender/Delete", calenderItem);
+        await scheduleAPIService.DeleteSchedule(calenderItem);
         NavigationManager.NavigateTo("");
     }
 }
