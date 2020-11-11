@@ -57,7 +57,7 @@ namespace CalenderScheduleAPI.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task AddCalender(Schedule schedule)
+        public async Task AddCalender([FromBody] Schedule schedule)
         {
 
             await dataService.Calender(schedule);
