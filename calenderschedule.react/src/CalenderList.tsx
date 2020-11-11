@@ -44,13 +44,13 @@ export const CalenderList = () => {
         e.preventDefault();
         
         const variable = {
-            Id: 0,
-            Name: names,
-            Year: years,
-            Month: months,
-            Day: days,
-            Time: times,
-            Description: descriptions,
+            id: 0,
+            name: names,
+            year: years,
+            month: months,
+            day: days,
+            time: times,
+            description: descriptions,
           }
         
         setSchedule(variable);
@@ -58,11 +58,19 @@ export const CalenderList = () => {
         console.log(schedule);
         console.log(variable);
 
-        axios.post(`https://calender-api-ammon.herokuapp.com/api/calender/addcalender`, { variable })
-        .then(res => {
-            console.log(res);
-            console.log(res.data);
-          })
+          axios({
+            method: 'post',
+            url: 'https://calender-api-ammon.herokuapp.com/api/calender/addcalender',
+            data: {
+              Id: 0,
+              Name: names,
+              Year: years,
+              Month: months,
+              Day: days,
+              Time: times,
+              Description: descriptions
+            }
+          });
       };
 
     const [error, setError]: [string, (error: string) => void] = React.useState("");
@@ -92,20 +100,25 @@ export const CalenderList = () => {
             <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Portfolio Name</th>
+                            <th>Name</th>
+                            <th>Month</th>
+                            <th>Day</th>
+                            <th>Year</th>
+                            <th>Time</th>
+                            <th>Description</th>
                         </tr>
             </thead>
             <tbody>
             {
-                schedules.map((schedule) =>(
-                   <tr key={schedule.Id}>
-                        <td>{schedule.Id}</td>
-                        <td>{schedule.Name}</td>
-                        <td>{schedule.Month}</td>
-                        <td>{schedule.Day}</td>
-                        <td>{schedule.Year}</td>
-                        <td>{schedule.Time}</td>
-                        <td>{schedule.Description}</td>
+                schedules.map((scheduleItem) =>(
+                   <tr key={scheduleItem.id}>
+                        <td>{scheduleItem.id}</td>
+                        <td>{scheduleItem.name}</td>
+                        <td>{scheduleItem.month}</td>
+                        <td>{scheduleItem.day}</td>
+                        <td>{scheduleItem.year}</td>
+                        <td>{scheduleItem.time}</td>
+                        <td>{scheduleItem.description}</td>
                    </tr>
                 ))
             }
