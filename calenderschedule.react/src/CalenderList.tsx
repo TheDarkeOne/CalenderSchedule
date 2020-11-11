@@ -44,20 +44,21 @@ export const CalenderList = () => {
         e.preventDefault();
         
         const variable = {
-            id: 0,
-            name: names,
-            year: years,
-            month: months,
-            day: days,
-            time: times,
-            description: descriptions,
+            Id: 0,
+            Name: names,
+            Year: years,
+            Month: months,
+            Day: days,
+            Time: times,
+            Description: descriptions,
           }
+        
         setSchedule(variable);
 
         console.log(schedule);
         console.log(variable);
 
-        axios.post(`https://calender-api-ammon.herokuapp.com/api/calender/addcalender`, { schedule })
+        axios.post(`https://calender-api-ammon.herokuapp.com/api/calender/addcalender`, { variable })
         .then(res => {
             console.log(res);
             console.log(res.data);
@@ -97,14 +98,14 @@ export const CalenderList = () => {
             <tbody>
             {
                 schedules.map((schedule) =>(
-                   <tr key={schedule.id}>
-                        <td>{schedule.id}</td>
-                        <td>{schedule.name}</td>
-                        <td>{schedule.month}</td>
-                        <td>{schedule.day}</td>
-                        <td>{schedule.year}</td>
-                        <td>{schedule.time}</td>
-                        <td>{schedule.description}</td>
+                   <tr key={schedule.Id}>
+                        <td>{schedule.Id}</td>
+                        <td>{schedule.Name}</td>
+                        <td>{schedule.Month}</td>
+                        <td>{schedule.Day}</td>
+                        <td>{schedule.Year}</td>
+                        <td>{schedule.Time}</td>
+                        <td>{schedule.Description}</td>
                    </tr>
                 ))
             }

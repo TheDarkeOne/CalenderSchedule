@@ -1,9 +1,9 @@
 export interface Schedule {
-    id: number;
-    name: string;
-    year: number;
-    month: number;
-    day: number;
-    time: Date;
-    description: string;
+    Id: number;
+    Name: string;
+    Year: number;
+    Month: number;
+    Day: number;
+    Time: Date;
+    Description: string;
 }
