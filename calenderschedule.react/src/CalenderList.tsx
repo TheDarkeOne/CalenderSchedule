@@ -11,6 +11,7 @@ export const CalenderList = () => {
     const [schedule, setSchedule]: [Schedule | null, (schedule: Schedule) => void] = React.useState<Schedule | null>(null);
 
     const [loading, setLoading]: [boolean, (loading: boolean) => void] = React.useState<boolean>(true);
+    const [id, setId] = useState(0);
     const [names, setName] = useState("");
     const [years, setYear] = useState(0);
     const [months, setMonth] = useState(0);
@@ -18,9 +19,45 @@ export const CalenderList = () => {
     const [times, setTime] : [Date, (time: Date) => void] = useState<Date>(new Date());
     const [descriptions, setDescription] = useState("");
 
+    const [edit, setEdit] = useState(false);
+
     const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => { 
         setName(e.currentTarget.value);
     };
+
+    const refreshPage = () => { 
+      window.location.reload(); 
+    }
+
+    function editSchedule(value : Schedule) {
+      setId(value.id);
+      setName(value.name);
+      setYear(value.year);
+      setMonth(value.month);
+      setDay(value.day);
+      setTime(value.time);
+      setDescription(value.description);
+      setEdit(true);
+      console.log(value);
+    }
+
+    function deleteSchedule (value : Schedule) {
+      console.log(value);
+
+      axios({
+        method: 'post',
+        url: 'https://calender-api-ammon.herokuapp.com/api/calender/delete',
+        data: {
+          Id: value.id,
+          Name: value.name,
+          Year: value.year,
+          Month: value.month,
+          Day: value.day,
+          Time: value.time,
+          Description: value.description
+        }
+      });
+    }
 
     const handleYearChange = (e: ChangeEvent<HTMLInputElement>) => { 
         
@@ -43,26 +80,13 @@ export const CalenderList = () => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
-        const variable = {
-            id: 0,
-            name: names,
-            year: years,
-            month: months,
-            day: days,
-            time: times,
-            description: descriptions,
-          }
-        
-        setSchedule(variable);
-
-        console.log(schedule);
-        console.log(variable);
-
+        if(edit)
+        {
           axios({
             method: 'post',
-            url: 'https://calender-api-ammon.herokuapp.com/api/calender/addcalender',
+            url: 'https://calender-api-ammon.herokuapp.com/api/calender/update',
             data: {
-              Id: 0,
+              Id: id,
               Name: names,
               Year: years,
               Month: months,
@@ -71,6 +95,31 @@ export const CalenderList = () => {
               Description: descriptions
             }
           });
+        } else 
+        {
+          axios({
+            method: 'post',
+            url: 'https://calender-api-ammon.herokuapp.com/api/calender/addcalender',
+            data: {
+              Id: id,
+              Name: names,
+              Year: years,
+              Month: months,
+              Day: days,
+              Time: times,
+              Description: descriptions
+            }
+          });
+        }
+        
+        setId(0);
+        setName("");
+        setYear(0);
+        setMonth(0);
+        setDay(0);
+        setTime(new Date());
+        setDescription("");
+        setEdit(false);
       };
 
     const [error, setError]: [string, (error: string) => void] = React.useState("");
@@ -119,6 +168,8 @@ export const CalenderList = () => {
                         <td>{scheduleItem.year}</td>
                         <td>{scheduleItem.time}</td>
                         <td>{scheduleItem.description}</td>
+                        <td><button onClick={() => editSchedule(scheduleItem)}>Edit</button></td>
+                        <td><button onClick={() => deleteSchedule(scheduleItem)}>Delete</button></td>
                    </tr>
                 ))
             }
@@ -127,14 +178,37 @@ export const CalenderList = () => {
         </ul>
         {error && <p className="error">{error}</p>}
 
-        <form onSubmit={handleSubmit}>
+        <hr />
+        <form  onSubmit={handleSubmit}>
+            <h1>Create Schedule Form</h1>
+            <label>
+            Name:
             <input type="text" placeholder="Name..." onChange={handleNameChange} value={names} />
+            </label>
+            <hr />
+            <label>
+            Month:
             <input type="number" placeholder="Month..." onChange={handleMonthChange} value={months} />
+            </label>
+            <hr />
+            <label>
+            Day:
             <input type="number" placeholder="Day..." onChange={handleDayChange} value={days} />
+            </label>
+            <hr />
+            <label>
+            Year:
             <input type="number" placeholder="Year..." onChange={handleYearChange} value={years} />
+            </label>
+            <hr />
+            <label>
+            Description:
             <input type="text" placeholder="Description..." onChange={handleDescriptionChange} value={descriptions} />
+            </label>
+            <hr />
             <input type="submit" value="Submit" />
         </form>
+        <button onClick={refreshPage} >Refresh</button>
       </div>
     );
 };
