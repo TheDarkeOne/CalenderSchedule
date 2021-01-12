@@ -22,16 +22,16 @@ namespace CalenderScheduleMobile.Services
         [Get("/api/calender/GetSchedulesByDate?year={year}&month={month}&day={day}")]
         Task<IEnumerable<Schedule>> GetSchedulesByDateAsync(int year, int month, int day);
 
-        [Get("/api/calender/getsingle/{id}")]
+        [Get("/api/calender/getsingleschedule/{id}")]
         Task<Schedule> GetScheduleAsync(int id);
 
-        [Post("/api/calender/addcalender")]
+        [Post("/api/calender/addschedule")]
         Task AddSchedule(Schedule newSchedule);
         
-        [Post("/api/calender/update")]
+        [Post("/api/calender/updateschedule")]
         Task UpdateSchedule(Schedule schedule);
         
-        [Post("/api/calender/delete")]
+        [Post("/api/calender/deleteschedule")]
         Task DeleteSchedule(Schedule schedule);
     }
 

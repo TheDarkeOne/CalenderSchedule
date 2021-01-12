@@ -21,22 +21,22 @@ namespace CalenderSchedule.BlazorWASM.Services
 
         public async Task AddScheduleAsync(Schedule schedule)
         {
-            await client.PostAsJsonAsync("/api/calender/AddCalender", schedule);
+            await client.PostAsJsonAsync("/api/calender/AddSchedule", schedule);
         }
 
         public async Task<Schedule> GetScheduleAsync(int Id)
         {
-            return await client.GetFromJsonAsync<Schedule>($"/api/calender/getsingle/{Id}");
+            return await client.GetFromJsonAsync<Schedule>($"/api/calender/getsingleschedule/{Id}");
         }
 
         public async Task UpdateSchedule(Schedule schedule)
         {
-            await client.PostAsJsonAsync("/api/calender/Update", schedule);
+            await client.PostAsJsonAsync("/api/calender/UpdateSchedule", schedule);
         }
 
         public async Task DeleteSchedule(Schedule schedule)
         {
-            await client.PostAsJsonAsync("/api/calender/Delete", schedule);
+            await client.PostAsJsonAsync("/api/calender/DeleteSchedule", schedule);
         }
 
         public async Task<IEnumerable<Schedule>> GetSchedulesAsync()

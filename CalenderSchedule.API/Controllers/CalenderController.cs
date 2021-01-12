@@ -51,28 +51,28 @@ namespace CalenderScheduleAPI.Controllers
         }
 
         [HttpGet("[action]/{Id}")]
-        public async Task<Schedule> GetSingle(int Id)
+        public async Task<Schedule> GetSingleSchedule(int Id)
         {
             return await dataService.GetScheduleById(Id);
         }
 
         [HttpPost("[action]")]
-        public async Task AddCalender([FromBody] Schedule schedule)
+        public async Task AddSchedule([FromBody] Schedule schedule)
         {
 
-            await dataService.Calender(schedule);
+            await dataService.AddSchedule(schedule);
         }
 
         [HttpPost("[action]")]
-        public async Task Update(Schedule schedule)
+        public async Task UpdateSchedule(Schedule schedule)
         {
-            await dataService.Update(schedule);
+            await dataService.UpdateSchedule(schedule);
         }
 
         [HttpPost("[action]")]
-        public async Task Delete(Schedule schedule)
+        public async Task DeleteSchedule(Schedule schedule)
         {
-            await dataService.Delete(schedule);
+            await dataService.DeleteSchedule(schedule);
         }
     }
 }

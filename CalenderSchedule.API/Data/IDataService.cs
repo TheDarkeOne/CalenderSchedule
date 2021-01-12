@@ -14,8 +14,8 @@ namespace CalenderScheduleAPI.Data
         Task<IEnumerable<Schedule>> GetSchedulesByYear(int Year);
         Task<IEnumerable<Schedule>> GetSchedulesByDate(int Year, int Month, int Day);
         Task<Schedule> GetScheduleById(int Id);
-        Task Calender(Schedule schedule);
-        Task Update(Schedule schedule);
-        Task Delete(Schedule schedule);
+        Task AddSchedule(Schedule schedule);
+        Task UpdateSchedule(Schedule schedule);
+        Task DeleteSchedule(Schedule schedule);
     }
 }

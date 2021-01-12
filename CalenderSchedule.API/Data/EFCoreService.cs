@@ -17,7 +17,7 @@ namespace CalenderScheduleAPI.Data
 
         }
 
-        public async Task Calender(Schedule schedule)
+        public async Task AddSchedule(Schedule schedule)
         {
             applicationDBContext.Schedule.Add(schedule);
             await applicationDBContext.SaveChangesAsync();
@@ -53,12 +53,12 @@ namespace CalenderScheduleAPI.Data
             return await applicationDBContext.Schedule.FindAsync(Id);
         }
 
-        public async Task Update(Schedule schedule)
+        public async Task UpdateSchedule(Schedule schedule)
         {
             applicationDBContext.Schedule.Update(schedule);
             await applicationDBContext.SaveChangesAsync();
         }
-        public async Task Delete(Schedule schedule)
+        public async Task DeleteSchedule(Schedule schedule)
         {
             applicationDBContext.Schedule.Remove(schedule);
             await applicationDBContext.SaveChangesAsync();
